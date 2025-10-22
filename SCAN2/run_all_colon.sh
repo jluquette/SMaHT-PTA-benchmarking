@@ -1,0 +1,251 @@
+#!/bin/bash
+#SBATCH -c 1
+#SBATCH --mem=8G
+#SBATCH -t 240:00:00
+#SBATCH -p priopark
+#SBATCH -A park_contrib
+
+outdir=all_colon
+
+if [ 0 -eq 1 ]; then
+/n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/bin/scan2 -d $outdir \
+    --snakefile /n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/snakemake/Snakefile init
+
+/n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/bin/scan2 -d $outdir \
+    --snakefile /n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/snakemake/Snakefile config \
+    --verbose \
+    --analysis call_mutations \
+    --genome hg38 \
+    --gatk sentieon_joint \
+    --ref /n/data1/hms/dbmi/park-smaht_dac/ref/GRCh38_no_alt/hg38_no_alt.fa \
+    --dbsnp /n/data1/hms/dbmi/park/jluquette/scan2-test/hg38/common_all_20180418.chrprefix.vcf \
+    --phaser eagle \
+    --eagle-refpanel /n/data1/hms/dbmi/park/jluquette/scan2-test/hg38/eagle_1000g_panel \
+    --eagle-genmap /n/data1/hms/dbmi/park/jluquette/scan2-test/hg38/eagle_1000g_panel/genetic_map_hg38_withX.txt.gz \
+    --scripts /n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/scripts \
+    --resources /n/data1/hms/dbmi/park/jluquette/SMaHT/pta_pilot/resources \
+    --regions-file /n/data1/hms/dbmi/park/jluquette/SMaHT/pta_pilot/scan2_analysis_regions_no_PARs_chr1-22XY_30839windows_100kb.txt \
+    --cross-sample-panel /n/data1/hms/dbmi/park/jluquette/SMaHT/pta_pilot/panel_104_PTA_2_bulk_ST002_52_PTA_18_bulk_neurons/panel/panel.tab.gz \
+    --sex male \
+    --bulk-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_bulkWgs/seq_data/SMAFIGBTW73V.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_bulkWgs/seq_data/SMAFI43OG9OX.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI2S6UC16_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI7DSNDAI_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI8RHUJVS_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI8ZRW634_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI981BRET_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI9VX7TP6_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIG9BD627_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIGS48K1K_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIJ1NNS51_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIJ38GDVW_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIJNLWWF8_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIKHXJF8Y_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIKJ42GM9_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIN8UINE3_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIPAETAVA_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIURQ1S35_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIUXVN8X8_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIWA7N6CM_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI22SJWPL_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI3AU2533_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI7LUMPMI_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIC2GZU55_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIFNLHOX2_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIHS8OJ7V_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIMZPF1D1_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIQ9M2ZN3_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIZ8WLLK3_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIZLPQFUB_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI3D883AK.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI8INXOJ2.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI8XGLKA8.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFICVRG2S2.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI5PYYVZA_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI7B7LEKT_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI97SY757_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFI9KTPSTS_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIBRG71BL_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIEEVQFDA_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIER1L2SB_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIMYRD1PF_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFING6ISUC_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIO2UH81W_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIPFCBZT2_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFITNKFQ7I_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIVSA5AI5_tags_removed.bam \
+    --sc-bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1G/illuminaNovaseq_pta/seq_data/SMAFIWCKZ4KG_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI1HFQVKJ_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI68KX6AU_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIFUJE1HS_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIGL3ODC4_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIL87OPFP_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIN8PYW1B_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIOGMPQW6_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIOJS918Q_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_BCM/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIPPXLCUW_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI33GSPI6_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI3MYQUKI_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFID1IBZZW_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIER63KAS_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIK2DTD5D_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIQEEU8KJ_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIRITNLAP_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFITZ6QF7U_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIWPEW7YV_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_Broad/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIZMGF89R_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIEP1ZEN3.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIMBNSZQJ.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_NYGC/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIWZVXVSI.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI1U6CPYI_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI2OGACJE_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI2YMLDA7_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI31YVJ3T_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI7IMXNTK_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI7TOOAK6_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI8665PKU_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI8TN14MW_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIC4JIWXS_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIH7BK4MN_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIIC9KFU3_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIJ5TQYKQ_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIJ99U4UM_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIJB1EPU9_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIKWGOS4G_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIMKBOQDI_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIOOY4YCE_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIP9OVY1K_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFITFI5XDC_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFITKGMLQC_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIV5JQ1RF_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIVPONF1W_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIXH65Z9X_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIXO7Q97U_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIXX3VOOS_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/GCC_WashU/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIZYIW8RA_tags_removed.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFI3LQMZAM.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIAL5DGVG.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIBGR661P.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIDDIVNII.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIDHFGEO7.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIKDLL4JW.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIMHL5HPA.bam \
+    --bam /n/data1/hms/dbmi/park-smaht_dac/DATA/TTD_Mayo/ST002-1D/illuminaNovaseq_pta/seq_data/SMAFIZBCMB9O.bam \
+    --amplification SMACS9V7SO8E PTA \
+    --amplification SMACSBYB858H PTA \
+    --amplification SMACS5CAR9VS PTA \
+    --amplification SMACS9H3UGVZ PTA \
+    --amplification SMACSHK8ZIGT PTA \
+    --amplification SMACS6PTJONJ PTA \
+    --amplification SMACSLDLRC9G PTA \
+    --amplification SMACSPNEFIGY PTA \
+    --amplification SMACSQ3AY64Y PTA \
+    --amplification SMACSWQEUWU3 PTA \
+    --amplification SMACSM8QGSBA PTA \
+    --amplification SMACSQ3F6FX4 PTA \
+    --amplification SMACSTCRHHD9 PTA \
+    --amplification SMACSZ2136VF PTA \
+    --amplification SMACSSTHYMHB PTA \
+    --amplification SMACS3VLR8BN PTA \
+    --amplification SMACSVVXLPOS PTA \
+    --amplification SMACSLF1SDA6 PTA \
+    --amplification SMACSW7REYP9 PTA \
+    --amplification SMACSTLU27CI PTA \
+    --amplification SMACS8WX9HRR PTA \
+    --amplification SMACS9CX64QF PTA \
+    --amplification SMACSSM6NUU7 PTA \
+    --amplification SMACSF5MYSSK PTA \
+    --amplification SMACS9DI9AEO PTA \
+    --amplification SMACS916XMLA PTA \
+    --amplification SMACSDJQBET7 PTA \
+    --amplification SMACS1GFACQW PTA \
+    --amplification SMACSAQUIGKT PTA \
+    --amplification SMACSPE8QXLN PTA \
+    --amplification SMACSGP4CMDT PTA \
+    --amplification SMACSELLRHCZ PTA \
+    --amplification SMACSD4V6G43 PTA \
+    --amplification SMACSYHXWV41 PTA \
+    --amplification SMACS67U1B8D PTA \
+    --amplification SMACS7CK4YZS PTA \
+    --amplification SMACST592TOV PTA \
+    --amplification SMACSS68ZEYW PTA \
+    --amplification SMACSBR61KY4 PTA \
+    --amplification SMACSFUIX8H4 PTA \
+    --amplification SMACSDW7W9JM PTA \
+    --amplification SMACSPQBK92L PTA \
+    --amplification SMACSTX2CBF7 PTA \
+    --amplification SMACS6X5TALT PTA \
+    --amplification SMACSBD3ZVMW PTA \
+    --amplification SMACSSH8IU1K PTA \
+    --amplification SMACSLBVO7UB PTA \
+    --amplification SMACS847FR52 PTA \
+    --amplification SMACS6N94UKL PTA \
+    --amplification SMACSG1A48WW PTA \
+    --amplification SMACSJ67WBP4 PTA \
+    --amplification SMACSCUG6A8O PTA \
+    --amplification SMACS237GKP7 PTA \
+    --amplification SMACS3WFHOU9 PTA \
+    --amplification SMACS3LUUS3E PTA \
+    --amplification SMACSO4MTLQB PTA \
+    --amplification SMACSG2YG7OW PTA \
+    --amplification SMACSWN1GU3J PTA \
+    --amplification SMACSXQPTC4P PTA \
+    --amplification SMACS6WBMRYB PTA \
+    --amplification SMACSQW3ECKL PTA \
+    --amplification SMACS65XVA6Y PTA \
+    --amplification SMACS7OGXC17 PTA \
+    --amplification SMACSRGEXSYT PTA \
+    --amplification SMACSDEENE5R PTA \
+    --amplification SMACS8VB15ZM PTA \
+    --amplification SMACSPJ4YK5Q PTA \
+    --amplification SMACSTU79Z9B PTA \
+    --amplification SMACS2T3VKE6 PTA \
+    --amplification SMACSG9AAELV PTA \
+    --amplification SMACS1OZ5RFS PTA \
+    --amplification SMACSIY9YVEC PTA \
+    --amplification SMACSOWHSDLN PTA \
+    --amplification SMACSN3QDA78 PTA \
+    --amplification SMACSSBO1MHW PTA \
+    --amplification SMACSFW8PPX5 PTA \
+    --amplification SMACSSCYDYVO PTA \
+    --amplification SMACSPIS7WK8 PTA \
+    --amplification SMACSKH513YN PTA \
+    --amplification SMACS9H3Q4IB PTA \
+    --amplification SMACSAOGX8BS PTA \
+    --amplification SMACS8QNX6W9 PTA \
+    --amplification SMACSBJ3VO7L PTA \
+    --amplification SMACSXTNOZQA PTA \
+    --amplification SMACSDLFV1VU PTA \
+    --amplification SMACS6BVVVQN PTA \
+    --amplification SMACSCSZYUWQ PTA \
+    --amplification SMACS89AFNQ1 PTA \
+    --amplification SMACSG1OVSEO PTA \
+    --amplification SMACSE8UHN33 PTA \
+    --amplification SMACSHIW5EMF PTA \
+    --amplification SMACS61SL8NG PTA \
+    --amplification SMACSH1WE7O7 PTA \
+    --amplification SMACS1CLQTQR PTA \
+    --amplification SMACSBM69H6Q PTA \
+    --amplification SMACSZJOM8X7 PTA \
+    --amplification SMACSGMFMORL PTA \
+    --amplification SMACSIGNW5HE PTA \
+    --amplification SMACSQCAZA5F PTA \
+    --amplification SMACSADM3CGP PTA \
+    --amplification SMACS2CZN69C PTA \
+    --amplification SMACSYBMLS5K PTA
+
+
+/n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/bin/scan2 -d $outdir \
+    --snakefile /n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/snakemake/Snakefile \
+    validate
+fi
+
+/n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/bin/scan2 -d $outdir  \
+    --snakefile /n/data1/hms/dbmi/park/jluquette/scan2-test/SCAN2/snakemake/Snakefile \
+    call_mutations \
+        --joblimit 5000 \
+        --genotype-n-cores 4 \
+        --abmodel-n-cores 8 \
+        --abests-and-mutmodels-n-cores 8 \
+        --ab-covariates-n-cores 8 \
+        --snakemake-args ' --retries 2 --set-resources integrate_tables:mem_mb=128000 --notemp --keep-going --latency-wait=60 --rerun-incomplete --executor slurm --default-resources slurm_account=park slurm_partition=short,park runtime=720 tmpdir="/n/data1/hms/dbmi/park/jluquette/SMaHT/pta_pilot/tmp" --max-jobs-per-timespan=6/1s --max-status-checks-per-second=0.1'
